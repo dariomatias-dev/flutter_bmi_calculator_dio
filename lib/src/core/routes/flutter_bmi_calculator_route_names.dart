@@ -1,3 +1,3 @@
 class FlutterBmiCalculatorRouteNames {
-  static String home = '/home';
+  static String home = '/';
 }
