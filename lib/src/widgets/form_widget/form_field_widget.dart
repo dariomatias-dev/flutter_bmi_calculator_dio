@@ -6,15 +6,17 @@ class FormFieldWidget extends StatelessWidget {
     required this.title,
     required this.valueExemple,
     required this.icon,
+    required this.controller,
   });
 
   final String title;
   final String valueExemple;
   final IconData icon;
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         label: Text(title),
@@ -26,6 +28,13 @@ class FormFieldWidget extends StatelessWidget {
         ),
         prefixIcon: Icon(icon),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor, insirá algum valor';
+        }
+
+        return null;
+      },
     );
   }
 }
