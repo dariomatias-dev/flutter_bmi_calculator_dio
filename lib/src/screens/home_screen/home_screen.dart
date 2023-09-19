@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
 import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
+
+import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/show_bmi_result.dart';
+
 import 'package:flutter_bmi_calculator_dio/src/utils/interpret_bmi_util.dart';
 
 import 'package:flutter_bmi_calculator_dio/src/widgets/form_widget/form_widget.dart';
@@ -34,14 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
   ) {
     final interpretation = interpretBmiUtil(bmi);
 
-    setState(() {
-      bmiData = BmiDataModel(
-        height: height,
-        weight: weight,
-        bmi: bmi,
-        interpretation: interpretation,
-      );
-    });
+    bmiData = BmiDataModel(
+      height: height,
+      weight: weight,
+      bmi: bmi,
+      interpretation: interpretation,
+    );
+
+    showBmiResult(
+      context,
+      bmiData!,
+    );
   }
 
   @override
