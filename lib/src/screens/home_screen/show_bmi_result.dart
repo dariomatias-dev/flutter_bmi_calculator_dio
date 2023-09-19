@@ -18,7 +18,7 @@ void showBmiResult(
               children: [
                 const Text('IMC igual a: '),
                 Text(
-                  double.parse(bmiData.bmi.toStringAsFixed(2)).toString(),
+                  bmiData.bmi.toString(),
                 ),
               ],
             ),

@@ -18,11 +18,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   BmiDataModel? bmiData;
+  List<BmiDataModel> bmiDatas = [];
 
   void calculateBmi(BodyMetricsModel bodyMetrics) {
     final heightInMeters = bodyMetrics.height / 100;
 
-    final bmi = bodyMetrics.weight / (heightInMeters * heightInMeters);
+    final result = (bodyMetrics.weight / (heightInMeters * heightInMeters));
+    final bmi = double.parse(result.toStringAsFixed(2));
 
     setBmiData(
       bodyMetrics.height,
@@ -49,7 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       bmiData!,
     );
+
+    setState(() {
+      bmiDatas.add(bmiData!);
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +75,70 @@ class _HomeScreenState extends State<HomeScreen> {
               FormWidget(
                 calculateBmi: calculateBmi,
               ),
+              if (bmiDatas.isNotEmpty) ...[
+                const SizedBox(height: 20.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: const <DataColumn>[
+                      DataColumn(
+                        label: Text('Altura'),
+                      ),
+                      DataColumn(
+                        label: Text('Peso'),
+                      ),
+                      DataColumn(
+                        label: Text('IMC'),
+                      ),
+                      DataColumn(
+                        label: Text('Situação'),
+                      ),
+                      DataColumn(
+                        label: Text('Remover'),
+                      ),
+                    ],
+                    rows: [
+                      DataRow(
+                        cells: [
+                          DataCell(
+                            Text(
+                              bmiDatas[0].height.toString(),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              bmiDatas[0].weight.toString(),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              bmiDatas[0].bmi.toString(),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              bmiDatas[0].interpretation,
+                            ),
+                          ),
+                          DataCell(
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.remove_circle),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+                ElevatedButton(
+                  onPressed: () {
+                    bmiDatas.clear();
+                  },
+                  child: const Text('Limpar'),
+                ),
+              ]
             ],
           ),
         ),
