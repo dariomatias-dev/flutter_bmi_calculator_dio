@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
+import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
+import 'package:flutter_bmi_calculator_dio/src/utils/interpret_bmi_util.dart';
 
 import 'package:flutter_bmi_calculator_dio/src/widgets/form_widget/form_widget.dart';
 
@@ -10,15 +13,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double? imc;
+  BmiDataModel? bmiData;
 
-  void calculateBmi(double height, double weight) {
-    final heightInMeters = height / 100;
+  void calculateBmi(BodyMetricsModel bodyMetrics) {
+    final heightInMeters = bodyMetrics.height / 100;
 
-    final value = weight / (heightInMeters * heightInMeters);
+    final bmi = bodyMetrics.weight / (heightInMeters * heightInMeters);
+
+    setBmiData(
+      bodyMetrics.height,
+      bodyMetrics.weight,
+      bmi,
+    );
+  }
+
+  void setBmiData(
+    double height,
+    double weight,
+    double bmi,
+  ) {
+    final interpretation = interpretBmiUtil(bmi);
 
     setState(() {
-      imc = value;
+      bmiData = BmiDataModel(
+        height: height,
+        weight: weight,
+        bmi: bmi,
+        interpretation: interpretation,
+      );
     });
   }
 
@@ -39,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
               FormWidget(
                 calculateBmi: calculateBmi,
               ),
-              if (imc != null) Text(imc.toString())
             ],
           ),
         ),
