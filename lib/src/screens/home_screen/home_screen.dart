@@ -57,6 +57,52 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  List<DataRow> _generateRows() {
+    final List<DataRow> rows = [];
+
+    for (int index = 0; index < bmiDatas.length; index++) {
+      final data = bmiDatas[index];
+
+      final row = DataRow(
+        cells: [
+          DataCell(
+            Text(
+              data.height.toString(),
+            ),
+          ),
+          DataCell(
+            Text(
+              data.weight.toString(),
+            ),
+          ),
+          DataCell(
+            Text(
+              data.bmi.toString(),
+            ),
+          ),
+          DataCell(
+            Text(
+              data.interpretation,
+            ),
+          ),
+          DataCell(
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  bmiDatas.removeAt(index);
+                });
+              },
+              icon: const Icon(Icons.remove_circle),
+            ),
+          ),
+        ],
+      );
+
+      rows.add(row);
+    }
+
+    return rows;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,44 +143,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         label: Text('Remover'),
                       ),
                     ],
-                    rows: [
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            Text(
-                              bmiDatas[0].height.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              bmiDatas[0].weight.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              bmiDatas[0].bmi.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              bmiDatas[0].interpretation,
-                            ),
-                          ),
-                          DataCell(
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.remove_circle),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                    rows: [..._generateRows()],
                   ),
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
-                    bmiDatas.clear();
+                    setState(() {
+                      bmiDatas.clear();
+                    });
                   },
                   child: const Text('Limpar'),
                 ),
