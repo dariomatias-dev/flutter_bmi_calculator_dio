@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
 import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
+import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/bmi_table_widget/bmi_table_widget.dart';
 
 import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/show_bmi_result.dart';
 
@@ -57,51 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  List<DataRow> _generateRows() {
-    final List<DataRow> rows = [];
-
-    for (int index = 0; index < bmiDatas.length; index++) {
-      final data = bmiDatas[index];
-
-      final row = DataRow(
-        cells: [
-          DataCell(
-            Text(
-              data.height.toString(),
-            ),
-          ),
-          DataCell(
-            Text(
-              data.weight.toString(),
-            ),
-          ),
-          DataCell(
-            Text(
-              data.bmi.toString(),
-            ),
-          ),
-          DataCell(
-            Text(
-              data.interpretation,
-            ),
-          ),
-          DataCell(
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  bmiDatas.removeAt(index);
-                });
-              },
-              icon: const Icon(Icons.remove_circle),
-            ),
-          ),
-        ],
-      );
-
-      rows.add(row);
-    }
-
-    return rows;
+  void removeBmi(int index) {
+    setState(() {
+      bmiDatas.removeAt(index);
+    });
   }
 
   @override
@@ -123,28 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               if (bmiDatas.isNotEmpty) ...[
                 const SizedBox(height: 20.0),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(
-                        label: Text('Altura'),
-                      ),
-                      DataColumn(
-                        label: Text('Peso'),
-                      ),
-                      DataColumn(
-                        label: Text('IMC'),
-                      ),
-                      DataColumn(
-                        label: Text('Situação'),
-                      ),
-                      DataColumn(
-                        label: Text('Remover'),
-                      ),
-                    ],
-                    rows: [..._generateRows()],
-                  ),
+                BmiTableWidget(
+                  bmiDatas: bmiDatas,
+                  removeBmi: removeBmi,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
