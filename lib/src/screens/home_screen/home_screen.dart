@@ -8,7 +8,7 @@ import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/show_bmi_resu
 
 import 'package:flutter_bmi_calculator_dio/src/utils/interpret_bmi_util.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/widgets/form_widget/form_widget.dart';
+import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/form_widget/form_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

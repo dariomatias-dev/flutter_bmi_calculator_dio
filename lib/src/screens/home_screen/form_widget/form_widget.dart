@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/widgets/form_widget/form_field_widget.dart';
+import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/form_widget/form_field_widget.dart';
 
 class FormWidget extends StatefulWidget {
   const FormWidget({
@@ -56,6 +56,11 @@ class _FormWidgetState extends State<FormWidget> {
                       height: height,
                       weight: weight,
                     );
+
+                    setState(() {
+                      _heightField.text = '';
+                      _weightField.text = '';
+                    });
 
                     final calculateBmi = widget.calculateBmi;
 
