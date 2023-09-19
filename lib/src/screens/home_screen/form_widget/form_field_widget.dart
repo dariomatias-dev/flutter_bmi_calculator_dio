@@ -7,17 +7,22 @@ class FormFieldWidget extends StatelessWidget {
     required this.valueExemple,
     required this.icon,
     required this.controller,
+    required this.focusNode,
+    required this.activateFocusNode,
   });
 
   final String title;
   final String valueExemple;
   final IconData icon;
   final TextEditingController controller;
+  final FocusNode focusNode;
+  final void Function(String) activateFocusNode;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      focusNode: focusNode,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         label: Text(title),
@@ -35,6 +40,11 @@ class FormFieldWidget extends StatelessWidget {
         }
 
         return null;
+      },
+      onFieldSubmitted: (value) {
+        if (value.isNotEmpty) {
+          activateFocusNode(title);
+        }
       },
     );
   }

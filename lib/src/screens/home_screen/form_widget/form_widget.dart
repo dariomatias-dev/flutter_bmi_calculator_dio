@@ -21,6 +21,43 @@ class _FormWidgetState extends State<FormWidget> {
   final TextEditingController _heightField = TextEditingController();
   final TextEditingController _weightField = TextEditingController();
 
+  final FocusNode _heightFocusNode = FocusNode();
+  final FocusNode _weightFocusNode = FocusNode();
+
+  void _activateFocusNode(String fieldName) {
+    if (_heightField.text.isEmpty || _weightField.text.isEmpty) {
+      if (fieldName == 'Altura') {
+        FocusScope.of(context).requestFocus(_weightFocusNode);
+      } else {
+        FocusScope.of(context).requestFocus(_heightFocusNode);
+      }
+    } else {
+      calculateBmi();
+    }
+  }
+
+  void calculateBmi() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (_formKey.currentState!.validate()) {
+      final double height = double.parse(_heightField.text);
+      final double weight = double.parse(_weightField.text);
+      final BodyMetricsModel bodyMetrics = BodyMetricsModel(
+        height: height,
+        weight: weight,
+      );
+
+      setState(() {
+        _heightField.text = '';
+        _weightField.text = '';
+      });
+
+      final calculateBmi = widget.calculateBmi;
+
+      calculateBmi(bodyMetrics);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -34,6 +71,8 @@ class _FormWidgetState extends State<FormWidget> {
               valueExemple: '180',
               icon: Icons.straighten,
               controller: _heightField,
+              focusNode: _heightFocusNode,
+              activateFocusNode: _activateFocusNode,
             ),
             const SizedBox(height: 10.0),
             FormFieldWidget(
@@ -41,32 +80,14 @@ class _FormWidgetState extends State<FormWidget> {
               valueExemple: '70',
               icon: Icons.balance_rounded,
               controller: _weightField,
+              focusNode: _weightFocusNode,
+              activateFocusNode: _activateFocusNode,
             ),
             const SizedBox(height: 20.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-
-                  if (_formKey.currentState!.validate()) {
-                    final double height = double.parse(_heightField.text);
-                    final double weight = double.parse(_weightField.text);
-                    final BodyMetricsModel bodyMetrics = BodyMetricsModel(
-                      height: height,
-                      weight: weight,
-                    );
-
-                    setState(() {
-                      _heightField.text = '';
-                      _weightField.text = '';
-                    });
-
-                    final calculateBmi = widget.calculateBmi;
-
-                    calculateBmi(bodyMetrics);
-                  }
-                },
+                onPressed: () => calculateBmi(),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     vertical: 16.0,
