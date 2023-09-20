@@ -26,7 +26,7 @@ class _FormWidgetState extends State<FormWidget> {
 
   void _activateFocusNode(String fieldName) {
     if (_heightField.text.isEmpty || _weightField.text.isEmpty) {
-      if (fieldName == 'Altura') {
+      if (fieldName == 'Altura (cm)') {
         FocusScope.of(context).requestFocus(_weightFocusNode);
       } else {
         FocusScope.of(context).requestFocus(_heightFocusNode);
@@ -40,8 +40,8 @@ class _FormWidgetState extends State<FormWidget> {
     FocusManager.instance.primaryFocus?.unfocus();
 
     if (_formKey.currentState!.validate()) {
-      final double height = double.parse(_heightField.text);
-      final double weight = double.parse(_weightField.text);
+      final int height = int.parse(_heightField.text);
+      final int weight = int.parse(_weightField.text);
       final BodyMetricsModel bodyMetrics = BodyMetricsModel(
         height: height,
         weight: weight,
@@ -67,7 +67,7 @@ class _FormWidgetState extends State<FormWidget> {
         child: Column(
           children: [
             FormFieldWidget(
-              title: 'Altura',
+              title: 'Altura (cm)',
               valueExemple: '180',
               icon: Icons.straighten,
               controller: _heightField,
@@ -76,7 +76,7 @@ class _FormWidgetState extends State<FormWidget> {
             ),
             const SizedBox(height: 10.0),
             FormFieldWidget(
-              title: 'Peso',
+              title: 'Peso (kg)',
               valueExemple: '70',
               icon: Icons.balance_rounded,
               controller: _weightField,

@@ -4,6 +4,6 @@ class BodyMetricsModel {
     required this.weight,
   });
 
-  final double height;
-  final double weight;
+  final int height;
+  final int weight;
 }

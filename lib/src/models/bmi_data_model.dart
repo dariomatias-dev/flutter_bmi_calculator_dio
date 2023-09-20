@@ -2,8 +2,8 @@ import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
 
 class BmiDataModel extends BodyMetricsModel {
   BmiDataModel({
-    required double height,
-    required double weight,
+    required int height,
+    required int weight,
     required this.bmi,
     required this.interpretation,
   }) : super(

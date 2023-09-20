@@ -35,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void setBmiData(
-    double height,
-    double weight,
+    int height,
+    int weight,
     double bmi,
   ) {
     final interpretation = interpretBmiUtil(bmi);
