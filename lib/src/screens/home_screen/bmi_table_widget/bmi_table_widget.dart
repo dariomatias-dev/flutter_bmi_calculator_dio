@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
+import 'package:bmi_calculator/src/models/bmi_data_model.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/bmi_table_widget/generate_rows.dart';
+import 'package:bmi_calculator/src/screens/home_screen/bmi_table_widget/generate_rows.dart';
 
 class BmiTableWidget extends StatelessWidget {
   const BmiTableWidget({

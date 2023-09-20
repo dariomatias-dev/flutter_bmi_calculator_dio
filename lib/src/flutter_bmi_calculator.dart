@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/core/routes/flutter_bmi_calculator_routes.dart';
+import 'package:bmi_calculator/src/core/routes/flutter_bmi_calculator_routes.dart';
 
 class FlutterBmiCalculatorApp extends StatelessWidget {
   const FlutterBmiCalculatorApp({super.key});

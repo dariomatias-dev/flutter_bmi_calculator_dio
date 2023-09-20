@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
+import 'package:bmi_calculator/src/models/bmi_data_model.dart';
 
 List<DataRow> generateRows(
   List<BmiDataModel> bmiDatas,

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/models/bmi_data_model.dart';
-import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
-import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/bmi_table_widget/bmi_table_widget.dart';
+import 'package:bmi_calculator/src/models/bmi_data_model.dart';
+import 'package:bmi_calculator/src/models/body_metrics_model.dart';
+import 'package:bmi_calculator/src/screens/home_screen/bmi_table_widget/bmi_table_widget.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/show_bmi_result.dart';
+import 'package:bmi_calculator/src/screens/home_screen/show_bmi_result.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/utils/interpret_bmi_util.dart';
+import 'package:bmi_calculator/src/utils/interpret_bmi_util.dart';
 
-import 'package:flutter_bmi_calculator_dio/src/screens/home_screen/form_widget/form_widget.dart';
+import 'package:bmi_calculator/src/screens/home_screen/form_widget/form_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

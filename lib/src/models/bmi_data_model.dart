@@ -1,4 +1,4 @@
-import 'package:flutter_bmi_calculator_dio/src/models/body_metrics_model.dart';
+import 'package:bmi_calculator/src/models/body_metrics_model.dart';
 
 class BmiDataModel extends BodyMetricsModel {
   BmiDataModel({
