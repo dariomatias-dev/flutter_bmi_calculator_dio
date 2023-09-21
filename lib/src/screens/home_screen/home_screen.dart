@@ -28,14 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = (bodyMetrics.weight / (heightInMeters * heightInMeters));
     final bmi = double.parse(result.toStringAsFixed(2));
 
-    setBmiData(
+    addBmiData(
       bodyMetrics.height,
       bodyMetrics.weight,
       bmi,
     );
   }
 
-  void setBmiData(
+  void addBmiData(
     int height,
     int weight,
     double bmi,
@@ -54,16 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
       bmiData!,
     );
 
-    bmiDataRepository.addBmiData(bmiData!);
+    bmiDataRepository.addData(bmiData!);
   }
 
   void removeBmi(int id) {
-    bmiDataRepository.removeBmiData(id);
+    bmiDataRepository.removeData(id);
   }
 
   @override
   void initState() {
-    bmiDataRepository.getBmiData();
+    bmiDataRepository.getData();
     super.initState();
   }
 
@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: ValueListenableBuilder(
           valueListenable: bmiDataRepository.bmiDatasValueNotifier,
           builder: (context, List<BmiDataModel> bmiDatas, child) {
-
             return Column(
               children: [
                 FormWidget(
@@ -95,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 10.0),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      bmiDataRepository.deleteAllData();
+                    },
                     child: const Text('Limpar'),
                   ),
                 ]

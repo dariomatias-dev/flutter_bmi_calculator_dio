@@ -12,11 +12,12 @@ import 'package:bmi_calculator/src/models/bmi_data_model.dart';
 class BmiDataRepository extends ChangeNotifier {
   late Database _db;
 
-  final ValueNotifier<List<BmiDataModel>> bmiDatasValueNotifier = ValueNotifier<List<BmiDataModel>>([]);
+  final ValueNotifier<List<BmiDataModel>> bmiDatasValueNotifier =
+      ValueNotifier<List<BmiDataModel>>([]);
 
   List<BmiDataModel> get bmiDatas => bmiDatasValueNotifier.value;
 
-  Future<void> getBmiData() async {
+  Future<void> getData() async {
     _db = await DB.instance.database;
     final List<Map<String, dynamic>> result = await _db.query(
       DBNamesHelper.bmiData,
@@ -27,22 +28,29 @@ class BmiDataRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addBmiData(BmiDataModel bmiData) async {
+  Future<void> addData(BmiDataModel bmiData) async {
     _db = await DB.instance.database;
     await _db.insert(
       DBNamesHelper.bmiData,
       bmiData.toMap(),
     );
-    await getBmiData();
+    await getData();
   }
 
-  Future<void> removeBmiData(int id) async {
+  Future<void> removeData(int id) async {
     _db = await DB.instance.database;
     await _db.delete(
       DBNamesHelper.bmiData,
       where: 'id = ?',
       whereArgs: [id],
     );
-    await getBmiData();
+    await getData();
+  }
+
+  Future<void> deleteAllData() async {
+    _db = await DB.instance.database;
+    await _db.delete(DBNamesHelper.bmiData);
+    bmiDatasValueNotifier.value = [];
+    notifyListeners();
   }
 }
