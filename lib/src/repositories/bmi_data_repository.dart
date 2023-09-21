@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -9,26 +11,20 @@ import 'package:bmi_calculator/src/models/bmi_data_model.dart';
 
 class BmiDataRepository extends ChangeNotifier {
   late Database _db;
-  List<BmiDataModel> _bmiData = [];
 
-  List<BmiDataModel> get bmiData => _bmiData;
+  final ValueNotifier<List<BmiDataModel>> bmiDatasValueNotifier = ValueNotifier<List<BmiDataModel>>([]);
 
-  BmiDataRepository() {
-    _initRepository();
-  }
-
-  _initRepository() async {
-    await getBmiData();
-  }
+  List<BmiDataModel> get bmiDatas => bmiDatasValueNotifier.value;
 
   Future<void> getBmiData() async {
     _db = await DB.instance.database;
     final List<Map<String, dynamic>> result = await _db.query(
       DBNamesHelper.bmiData,
     );
-    _bmiData = result.map((value) {
+    bmiDatasValueNotifier.value = result.map((value) {
       return BmiDataModel.fromMap(value);
     }).toList();
+    notifyListeners();
   }
 
   Future<void> addBmiData(BmiDataModel bmiData) async {
@@ -37,7 +33,7 @@ class BmiDataRepository extends ChangeNotifier {
       DBNamesHelper.bmiData,
       bmiData.toMap(),
     );
-    notifyListeners();
+    await getBmiData();
   }
 
   Future<void> removeBmiData(String id) async {
@@ -47,6 +43,6 @@ class BmiDataRepository extends ChangeNotifier {
       where: 'id = ?',
       whereArgs: [id],
     );
-    notifyListeners();
+    await getBmiData();
   }
 }
