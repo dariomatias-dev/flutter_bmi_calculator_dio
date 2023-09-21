@@ -1,17 +1,20 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+import 'package:bmi_calculator/src/core/helpers/db_names_helper.dart';
+
 class DB {
   DB._();
 
   static final DB instance = DB._();
 
-  static final Database? _database;
+  static Database? _database;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    return await _initDatabase();
+    _database = await _initDatabase();
+    return _database!;
   }
 
   Future<Database> _initDatabase() async {
@@ -30,12 +33,12 @@ class DB {
   }
 
   String get _imc => '''
-    CREATE TABLE bmi_data (
+    CREATE TABLE ${DBNamesHelper.bmiData} (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       height INTEGER,
       weight INTEGER,
       bmi REAL,
-      interpretation TEXT,
+      interpretation TEXT
     )
   ''';
 }

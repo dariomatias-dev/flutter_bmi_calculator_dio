@@ -13,4 +13,22 @@ class BmiDataModel extends BodyMetricsModel {
 
   final double bmi;
   final String interpretation;
+
+  factory BmiDataModel.fromMap(Map<String, dynamic> map) {
+    return BmiDataModel(
+      height: map['height'],
+      weight: map['weight'],
+      bmi: map['bmi'],
+      interpretation: map['interpretation'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'height': height,
+      'weight': weight,
+      'bmi': bmi,
+      'interpretation': interpretation,
+    };
+  }
 }
