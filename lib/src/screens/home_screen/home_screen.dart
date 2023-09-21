@@ -57,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
     bmiDataRepository.addBmiData(bmiData!);
   }
 
-  void removeBmi(int index) {}
+  void removeBmi(int id) {
+    bmiDataRepository.removeBmiData(id);
+  }
 
   @override
   void initState() {

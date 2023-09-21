@@ -12,7 +12,7 @@ class BmiTableWidget extends StatelessWidget {
   });
 
   final List<BmiDataModel> bmiDatas;
-  final void Function(int index) removeBmi;
+  final void Function(int) removeBmi;
 
   @override
   Widget build(BuildContext context) {

@@ -3,46 +3,40 @@ import 'package:bmi_calculator/src/models/bmi_data_model.dart';
 
 List<DataRow> generateRows(
   List<BmiDataModel> bmiDatas,
-  void Function(int index) removeBmi,
+  void Function(int) removeBmi,
 ) {
-  final List<DataRow> rows = [];
-
-  for (int index = 0; index < bmiDatas.length; index++) {
-    final data = bmiDatas[index];
-
-    final row = DataRow(
+  final List<DataRow> rows = bmiDatas.map((bmiData) {
+    return DataRow(
       cells: [
         DataCell(
           Text(
-            data.height.toString(),
+            bmiData.height.toString(),
           ),
         ),
         DataCell(
           Text(
-            data.weight.toString(),
+            bmiData.weight.toString(),
           ),
         ),
         DataCell(
           Text(
-            data.bmi.toString(),
+            bmiData.bmi.toString(),
           ),
         ),
         DataCell(
           Text(
-            data.interpretation,
+            bmiData.interpretation,
           ),
         ),
         DataCell(
           IconButton(
-            onPressed: () => removeBmi(index),
+            onPressed: () => removeBmi(bmiData.id!),
             icon: const Icon(Icons.remove_circle),
           ),
         ),
       ],
     );
-
-    rows.add(row);
-  }
+  }).toList();
 
   return rows;
 }

@@ -36,7 +36,7 @@ class BmiDataRepository extends ChangeNotifier {
     await getBmiData();
   }
 
-  Future<void> removeBmiData(String id) async {
+  Future<void> removeBmiData(int id) async {
     _db = await DB.instance.database;
     await _db.delete(
       DBNamesHelper.bmiData,
